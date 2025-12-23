@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaderno de Emi - Porque vales más de lo que crees</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 50%, #e3f2fd 100%);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ec4899 0%, #9333ea 100%);
+            color: white;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .progress-bar-container {
+            background: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .progress-bar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ec4899 0%, #9333ea 100%);
+            transition: width 0.5s ease;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .section-nav {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .section-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .section-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .section-btn.active {
+            background: linear-gradient(135deg, #ec4899 0%, #9333ea 100%);
+            color: white;
+        }
+        
+        .exercise-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .exercise-header {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .exercise-icon {
+            font-size: 2rem;
+        }
+        
+        .exercise-title {
+            flex: 1;
+        }
+        
+        .exercise-title h2 {
+            font-size: 1.75rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .exercise-subtitle {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .exercise-content {
+            background: linear-gradient(135deg, #f3e5f5 0%, #fce4ec 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            color: #444;
+        }
+        
+        .field-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .field-label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .field-input, .field-textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0b4d1;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        
+        .field-input:focus, .field-textarea:focus {
+            outline: none;
+            border-color: #9333ea;
+            box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.1);
+        }
+        
+        .field-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .save-status {
+            text-align: center;
+            margin: 1rem 0;
+            padding: 0.75rem;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        
+        .save-status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .nav-btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-btn.prev {
+            background: white;
+            color: #333;
+            border: 2px solid #ddd;
+        }
+        
+        .nav-btn.next {
+            background: linear-gradient(135deg, #ec4899 0%, #9333ea 100%);
+            color: white;
+        }
+        
+        .nav-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .export-section {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .export-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #9333ea 0%, #ec4899 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+        
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(147, 51, 234, 0.4);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+        
+        .footer-quote {
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #9333ea 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        // DATOS COMPLETOS - Versión simplificada con todos los ejercicios
+        const sections = [
+            {
+                title: "🌈 Bienvenida",
+                color: "#ec4899",
+                exercises: [
+                    {
+                        id: "dedicatoria",
+                        title: "Dedicatoria",
+                        content: "Para ti, Emi.\n\nQuise hacerte este cuaderno personalizado porque eres una persona que realmente deja huella en este mundo. Donde llegas, te quieren; donde estás, se siente tu energía suave, tu empatía, tu forma tan linda de tratar a los demás y tu manera única de ver la vida.\n\nEres de esas personas que no necesitan llamar la atención para brillar… simplemente brillan. Y tu sonrisa, esa sonrisa tuya tan especial, le da vida a cualquier persona que ya no cree en la felicidad. Nunca dejes de sonreír, porque cuando lo haces, el mundo se vuelve un lugar mejor.\n\nHice este cuaderno para ti porque quiero que aprendas a quererte tanto como otros te queremos. Quiero que te entiendas, que te cuides, que te trates con el mismo cariño con el que tratas a los demás. Porque tú también mereces ese amor, esa paciencia, esa ternura que siempre das.\n\nQuiero que seas capaz de darte cuenta de lo que realmente vales. Quiero que veas lo importante que eres en este mundo, no solo para mí, sino para tantas personas que tienen la suerte de conocerte. Tu presencia importa. Tu esencia importa. Tú importas.\n\nGracias, Emi. Gracias por ser tan tierna conmigo, por quererme tanto como yo te quiero a ti. Gracias por tu autenticidad, por tu corazón enorme, por cada momento compartido. Gracias por ser tú, exactamente como eres.\n\nQuiero que sepas algo muy importante: puedes contar conmigo para lo que necesites, siempre. Aunque no esté físicamente a tu lado todos los días, estoy a una llamada de distancia, a un mensaje. Puedes escribirme, llamarme, buscarme… y yo siempre, siempre estaré ahí para ti.\n\nEste cuaderno es mi forma de acompañarte en tu camino, de estar contigo incluso cuando no estamos juntos. Cada ejercicio que hagas, cada palabra que escribas aquí, será un paso más hacia la mejor versión de ti misma. No para cambiar quién eres, sino para que descubras lo increíble que ya eres.\n\nTe quiero muchísimo, y me siento muy agradecida por todo el cariño y confianza que me has dado. Este es mi regalo para ti, pero también mi forma de decirte algo que deseo que nunca olvides: eres especial, valiosa, única e irremplazable, incluso en esos días donde a veces cuesta creerlo.\n\nQue este cuaderno te recuerde siempre que tienes un brillo propio, y que cuando lo veas, nada ni nadie podrá apagarte.\n\nCon todo mi amor,\nMayito 💜\n\nP.D.: Recuerda que no estás sola. Estoy contigo, siempre.",
+                        fields: []
+                    },
+                    {
+                        id: "intro",
+                        title: "Tu Manual de Crecimiento",
+                        content: "📘 CÓMO USAR ESTE CUADERNO\n\n✨ Tómalo con calma - Tu ritmo es perfecto\n💜 Sé brutalmente honesta - Este es tu espacio seguro\n🌟 No hay un orden obligatorio\n🎨 ¡Hazlo tuyo!\n📓 Vuelve cuando quieras\n💬 Habla contigo misma\n🌈 Permítete disfrutar\n\nRECUERDA: Este cuaderno no es para ser perfecto. Es para ser tuyo. Y tú, tal como eres hoy, ya eres suficiente y brillante.",
+                        fields: [
+                            { id: "compromiso", label: "Mi compromiso conmigo misma:", type: "textarea" }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "💎 Autoestima - Autoconciencia",
+                color: "#9333ea",
+                exercises: [
+                    {
+                        id: "logros",
+                        title: "Ejercicio 1: Inventario de Logros",
+                        content: "Objetivo: Reconocer tu capacidad, tu esfuerzo y tus avances.\n\nEscribe 20 logros (grandes y pequeños). Para cada uno:\n• ¿Qué hice exactamente?\n• ¿Qué parte de mí hizo esto posible?\n• ¿Qué aprendí sobre mí?",
+                        fields: [
+                            { id: "logros_1_5", label: "Logros 1-5:", type: "textarea" },
+                            { id: "logros_6_10", label: "Logros 6-10:", type: "textarea" },
+                            { id: "logros_11_15", label: "Logros 11-15:", type: "textarea" },
+                            { id: "logros_16_20", label: "Logros 16-20:", type: "textarea" },
+                            { id: "reflexion_logros", label: "¿Qué descubriste sobre ti?", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "resiliencia",
+                        title: "Ejercicio 2: Mi Historia de Resiliencia",
+                        content: "Objetivo: Ver tu fuerza en momentos difíciles.\n\nEscribe tu historia en 4 capítulos:",
+                        fields: [
+                            { id: "cap1", label: "Capítulo 1: El momento duro", type: "textarea" },
+                            { id: "cap2", label: "Capítulo 2: Lo que sentiste", type: "textarea" },
+                            { id: "cap3", label: "Capítulo 3: Cómo seguiste adelante", type: "textarea" },
+                            { id: "cap4", label: "Capítulo 4: La enseñanza", type: "textarea" },
+                            { id: "simbolo", label: "Símbolo de tu resiliencia:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "roles",
+                        title: "Ejercicio 3: Mis Roles Importantes",
+                        content: "Objetivo: Reconocer todas tus versiones.\n\nPara cada rol anota:\n• Lo que aporto\n• Lo que me gusta de mí aquí\n• Cómo puedo cuidarme más",
+                        fields: [
+                            { id: "roles_texto", label: "Mis roles (hija, amiga, estudiante...):", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "voz_interior",
+                        title: "Ejercicio 4: Mi Voz Interior",
+                        content: "Objetivo: Detectar cómo te hablas y transformarlo.\n\nPara cada pensamiento duro:\n• ¿De dónde viene?\n• ¿Qué tan cierto es del 1 al 10?\n• ¿Qué diría mi yo más amorosa?",
+                        fields: [
+                            { id: "pensamientos", label: "Pensamientos duros y sus versiones amables:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "autenticidad",
+                        title: "Ejercicio 5: ¿Quién Soy Cuando Nadie Me Mira?",
+                        content: "Objetivo: Reconectar con tu esencia.",
+                        fields: [
+                            { id: "energia", label: "¿Cómo es mi energía cuando estoy sola?", type: "textarea" },
+                            { id: "gustos", label: "¿Qué me gusta hacer cuando estoy tranquila?", type: "textarea" },
+                            { id: "cualidades", label: "¿Qué cualidades quiero mostrar más al mundo?", type: "textarea" }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "🌸 Sanar la Autocrítica",
+                color: "#06b6d4",
+                exercises: [
+                    {
+                        id: "reescritura",
+                        title: "Ejercicio 6: Reescritura Compasiva",
+                        content: "Objetivo: Transformar la forma en que te hablas.\n\nEscribe 5 frases críticas y sus versiones compasivas.",
+                        fields: [
+                            { id: "frases_criticas", label: "Frases críticas → Versiones compasivas:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "critico",
+                        title: "Ejercicio 7: Atrapa al Crítico",
+                        content: "Objetivo: Reconocer a tu crítico interno sin dejar que te controle.",
+                        fields: [
+                            { id: "descripcion", label: "Describe tu crítico interno:", type: "textarea" },
+                            { id: "nombre", label: "¿Qué nombre le pondrías?", type: "text" },
+                            { id: "frase_tipica", label: "Frase típica que dice:", type: "text" },
+                            { id: "respuesta", label: "¿Qué le dirás cuando aparezca?", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "mejor_amiga",
+                        title: "Ejercicio 8: Mi Mejor Amiga Interna",
+                        content: "Objetivo: Ser más gentil contigo.",
+                        fields: [
+                            { id: "palabras_amiga", label: "¿Qué le dirías a tu mejor amiga en un mal momento?", type: "textarea" },
+                            { id: "para_mi", label: "Ahora escribe esas palabras para ti:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "caja",
+                        title: "Ejercicio 9: Caja de Autovaloración",
+                        content: "Objetivo: Recordar que tus emociones importan.",
+                        fields: [
+                            { id: "practica_validacion", label: "¿Cuándo practiqué? ¿Qué sentí?", type: "textarea" }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "🧠 Autocuidado Mental",
+                color: "#9333ea",
+                exercises: [
+                    {
+                        id: "orden",
+                        title: "Ejercicio 37: Orden de 5 Minutos",
+                        content: "Objetivo: Claridad mental.",
+                        fields: [
+                            { id: "espacio", label: "Espacio que ordené:", type: "text" },
+                            { id: "sensacion", label: "¿Cómo me sentí después?", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "silencio",
+                        title: "Ejercicio 38: Silencio Consciente",
+                        content: "Objetivo: Descansar tu interior.",
+                        fields: [
+                            { id: "descubrimiento", label: "¿Qué descubrí en el silencio?", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "desafio_pensamientos",
+                        title: "Ejercicio 39: Desafío de Pensamientos",
+                        content: "Objetivo: Cuestionar ideas que te lastiman.",
+                        fields: [
+                            { id: "pensamientos_desafio", label: "Pensamientos incómodos y reescrituras:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "mindfulness",
+                        title: "Ejercicio 40: Mindfulness de 1 Minuto",
+                        content: "Objetivo: Volver al presente.",
+                        fields: [
+                            { id: "practica_mindfulness", label: "¿Cuándo lo practiqué? ¿Cómo ayudó?", type: "textarea" }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "🌻 Autoimagen",
+                color: "#06b6d4",
+                exercises: [
+                    {
+                        id: "espejo_amigo",
+                        title: "Ejercicio 41: Mi Espejo Amigo",
+                        content: "Objetivo: Cambiar tu relación con el espejo.",
+                        fields: [
+                            { id: "tres_cosas", label: "3 cosas que me gustan al mirarme:", type: "textarea" },
+                            { id: "mensaje_espejo", label: "Mensaje para mi espejo:", type: "text" }
+                        ]
+                    },
+                    {
+                        id: "mensaje_diario",
+                        title: "Ejercicio 42: Mensaje Amoroso Diario",
+                        content: "Objetivo: Reforzar tu autoimagen.",
+                        fields: [
+                            { id: "frases_amorosas", label: "5 frases amorosas para mí:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "collage",
+                        title: "Ejercicio 43: Collage de Yo",
+                        content: "Objetivo: Visualizar quién eres.",
+                        fields: [
+                            { id: "elementos", label: "Elementos de mi collage:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "carta_pasado",
+                        title: "Ejercicio 44: Carta a Mi Yo Pasado",
+                        content: "Objetivo: Reconocer tu crecimiento.",
+                        fields: [
+                            { id: "carta_pasado", label: "Carta a mi yo de hace 1-2 años:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "afirmaciones_imagen",
+                        title: "Ejercicio 45: Afirmaciones de Autoimagen",
+                        content: "Objetivo: Reforzar desde adentro.",
+                        fields: [
+                            { id: "afirmaciones_imagen", label: "10 afirmaciones poderosas:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "diario_virtudes",
+                        title: "Ejercicio 46: Diario de Virtudes",
+                        content: "Objetivo: Enfocarte en tus fortalezas.",
+                        fields: [
+                            { id: "virtudes_semana", label: "Logros y virtudes de esta semana:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "comparaciones",
+                        title: "Ejercicio 47: Rompiendo Comparaciones",
+                        content: "Objetivo: Dejar de compararte.",
+                        fields: [
+                            { id: "situacion_comparacion", label: "Situación donde me comparé:", type: "textarea" },
+                            { id: "redefinir", label: "¿Cómo redefinir esto como aprendizaje?", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "estilo_autentico",
+                        title: "Ejercicio 48: Mi Estilo Auténtico",
+                        content: "Objetivo: Expresarte con lo que te hace sentir tú.",
+                        fields: [
+                            { id: "prendas", label: "3 prendas/accesorios que me representan:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "gratitud_cuerpo",
+                        title: "Ejercicio 49: Gratitud por Mi Cuerpo",
+                        content: "Objetivo: Agradecer.",
+                        fields: [
+                            { id: "cuerpo", label: "5 cosas que mi cuerpo hace por mí:", type: "textarea" },
+                            { id: "personalidad", label: "5 características de mi personalidad:", type: "textarea" }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "🌈 Cierre - Tu Promesa",
+                color: "#eab308",
+                exercises: [
+                    {
+                        id: "promesa",
+                        title: "Mi Promesa Hacia Mí Misma",
+                        content: "Prometo cuidarme cada día, escuchar mis emociones, valorar mis logros y permitirme descansar. Prometo mirarme con amor en el espejo, reconocer mi esencia y recordar que soy suficiente tal como soy.",
+                        fields: [
+                            { id: "mi_promesa", label: "Mi promesa personal:", type: "textarea" },
+                            { id: "compromiso_diario", label: "Un compromiso diario:", type: "text" }
+                        ]
+                    },
+                    {
+                        id: "frases_recordar",
+                        title: "Frases Para Recordar Siempre",
+                        content: "💖 Frases importantes:\n\n1. Soy suficiente tal como soy\n2. Merezco amor, respeto y cuidado\n3. Cada emoción que siento es válida\n4. Mi cuerpo y mi mente son mis aliados\n5. No necesito compararme\n6. Mi esencia brilla siempre\n7. Aprender a quererme es un regalo\n8. Puedo descansar, reír y ser auténtica\n9. Mis pensamientos no me definen\n10. Soy valiosa, importante y digna",
+                        fields: [
+                            { id: "frase_favorita", label: "Mi frase favorita:", type: "text" },
+                            { id: "donde", label: "¿Dónde la pondré?", type: "text" },
+                            { id: "frase_propia", label: "Mi frase nueva:", type: "text" }
+                        ]
+                    },
+                    {
+                        id: "mensaje_final",
+                        title: "Mensaje Final",
+                        content: "Querida Emi,\n\nLlegaste al final de estas páginas, pero no al final de tu camino.\n\nTu valor no cambia por lo que otros opinen. Tu valor viene de quién eres por dentro… y eso ya es increíble.\n\nEres única, especial y completamente capaz de cuidarte, amarte y mirarte con ojos llenos de ternura.\n\nMereces descanso. Mereces amor. Mereces hablarte bonito. Mereces ocupar espacio en el mundo tal como eres.\n\nSigue tu camino con confianza, con curiosidad y con la certeza de que estás floreciendo.\n\nPoco a poco. A tu ritmo. Sin compararte.\n\nY siempre, siempre, con mucho amor hacia ti misma.",
+                        fields: [
+                            { id: "reflexion_final", label: "¿Qué me llevo de este viaje?", type: "textarea" },
+                            { id: "siguiente_paso", label: "Mi siguiente paso:", type: "textarea" },
+                            { id: "mensaje_mayito", label: "Mensaje de agradecimiento:", type: "textarea" }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // Estado
+        let currentSection = 0;
+        let currentExercise = 0;
+        let responses = {};
+
+        // Cargar respuestas
+        function loadResponses() {
+            try {
+                const saved = localStorage.getItem('cuaderno-emi-responses');
+                if (saved) {
+                    responses = JSON.parse(saved);
+                }
+            } catch (e) {
+                console.log('Primera vez usando el cuaderno');
+            }
+        }
+
+        // Guardar respuestas
+        function saveResponses() {
+            try {
+                localStorage.setItem('cuaderno-emi-responses', JSON.stringify(responses));
+                showSaveStatus();
+            } catch (e) {
+                console.error('Error al guardar');
+            }
+        }
+
+        function showSaveStatus() {
+            const status = document.getElementById('saveStatus');
+            if (status) {
+                status.style.display = 'block';
+                setTimeout(() => {
+                    status.style.display = 'none';
+                }, 2000);
+            }
+        }
+
+        function handleInput(exerciseId, fieldId, value) {
+            if (!responses[exerciseId]) {
+                responses[exerciseId] = {};
+            }
+            responses[exerciseId][fieldId] = value;
+            saveResponses();
+        }
+
+        function nextExercise() {
+            const currentSec = sections[currentSection];
+            if (currentExercise < currentSec.exercises.length - 1) {
+                currentExercise++;
+            } else if (currentSection < sections.length - 1) {
+                currentSection++;
+                currentExercise = 0;
+            }
+            render();
+            window.scrollTo(0, 0);
+        }
+
+        function prevExercise() {
+            if (currentExercise > 0) {
+                currentExercise--;
+            } else if (currentSection > 0) {
+                currentSection--;
+                currentExercise = sections[currentSection].exercises.length - 1;
+            }
+            render();
+            window.scrollTo(0, 0);
+        }
+
+        function goToSection(idx) {
+            currentSection = idx;
+            currentExercise = 0;
+            render();
+            window.scrollTo(0, 0);
+        }
+
+        function exportData() {
+            const dataStr = JSON.stringify(responses, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'mi-cuaderno-emi.json';
+            link.click();
+        }
+
+        function calculateProgress() {
+            const total = sections.reduce((sum, s) => sum + s.exercises.length, 0);
+            const current = sections.slice(0, currentSection).reduce((sum, s) => sum + s.exercises.length, 0) + currentExercise + 1;
+            return (current / total) * 100;
+        }
+
+        function render() {
+            const currentSec = sections[currentSection];
+            const currentEx = currentSec.exercises[currentExercise];
+            const progress = calculateProgress();
+
+            let html = `
+                <div class="header">
+                    <div class="header-content">
+                        <h1>❤️ Porque vales más de lo que crees</h1>
+                        <p>Un viaje para reconocer tu luz</p>
+                    </div>
+                </div>
+
+                <div class="progress-bar-container">
+                    <div class="progress-bar-content">
+                        <div class="progress-info">
+                            <span>Tu progreso</span>
+                            <span>Sección ${currentSection + 1} de ${sections.length}</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${progress}%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="section-nav">
+                        ${sections.map((sec, idx) => `
+                            <button class="section-btn ${currentSection === idx ? 'active' : ''}" 
+                                    onclick="goToSection(${idx})">
+                                ${sec.title}
+                            </button>
+                        `).join('')}
+                    </div>
+
+                    <div class="exercise-card">
+                        <div class="exercise-header">
+                            <div class="exercise-icon">✨</div>
+                            <div class="exercise-title">
+                                <h2>${currentEx.title}</h2>
+                                <div class="exercise-subtitle">Ejercicio ${currentExercise + 1} de ${currentSec.exercises.length}</div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-content">${currentEx.content}</div>
+
+                        <div>
+                            ${currentEx.fields.map(field => {
+                                const value = responses[currentEx.id]?.[field.id] || '';
+                                return `
+                                    <div class="field-group">
+                                        <label class="field-label">${field.label}</label>
+                                        ${field.type === 'textarea' ? `
+                                            <textarea 
+                                                class="field-textarea"
+                                                placeholder="Escribe aquí tus reflexiones..."
+                                                oninput="handleInput('${currentEx.id}', '${field.id}', this.value)"
+                                            >${value}</textarea>
+                                        ` : `
+                                            <input 
+                                                type="text"
+                                                class="field-input"
+                                                value="${value}"
+                                                placeholder="Escribe aquí..."
+                                                oninput="handleInput('${currentEx.id}', '${field.id}', this.value)"
+                                            />
+                                        `}
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+
+                        <div id="saveStatus" class="save-status success" style="display: none;">
+                            ✓ Guardado automáticamente
+                        </div>
+                    </div>
+
+                    <div class="nav-buttons">
+                        <button class="nav-btn prev" 
+                                onclick="prevExercise()"
+                                ${currentSection === 0 && currentExercise === 0 ? 'disabled' : ''}>
+                            ← Anterior
+                        </button>
+                        <button class="nav-btn next" 
+                                onclick="nextExercise()"
+                                ${currentSection === sections.length - 1 && currentExercise === currentSec.exercises.length - 1 ? 'disabled' : ''}>
+                            Siguiente →
+                        </button>
+                    </div>
+
+                    <div class="export-section">
+                        <button class="export-btn" onclick="exportData()">
+                            📥 Descargar mis respuestas
+                        </button>
+                        <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">
+                            Guarda una copia de todo tu trabajo
+                        </p>
+                    </div>
+
+                    <div class="footer">
+                        <div class="footer-quote">
+                            "Que tienes un brillo propio, y que cuando lo veas, nada podrá apagarte"
+                        </div>
+                        <p>Con mucho cariño, Mayito 💜</p>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('app').innerHTML = html;
+        }
+
+        // Inicializar
+        loadResponses();
+        render();
+    </script>
+</body>
+</html>te quién eres en días de duda.",
+                        fields: [
+                            { id: "lista_caja", label: "Cosas para tu caja (actualiza cada semana):", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "verdad",
+                        title: "Ejercicio 10: Repite Tu Verdad",
+                        content: "Objetivo: Construir una narrativa interna más sana.",
+                        fields: [
+                            { id: "afirmacion", label: "Mi afirmación para este mes:", type: "text" },
+                            { id: "reflexion", label: "¿Cómo me hace sentir? ¿Cuándo la necesito más?", type: "textarea" }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "⭐ Identidad y Valores",
+                color: "#14b8a6",
+                exercises: [
+                    {
+                        id: "valores",
+                        title: "Ejercicio 11: Mis 10 Valores",
+                        content: "Objetivo: Descubrir qué cosas son realmente importantes para ti.\n\nPara cada valor:\n• Por qué es importante\n• Cómo se ve en mis acciones\n• Cómo puedo cuidarlo más",
+                        fields: [
+                            { id: "valores_texto", label: "Mis 10 valores y reflexiones:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "decisiones",
+                        title: "Ejercicio 12: Decisiones Alineadas",
+                        content: "Objetivo: Tomar decisiones coherentes contigo misma.",
+                        fields: [
+                            { id: "valor_semana", label: "Valor de esta semana:", type: "text" },
+                            { id: "acciones_semana", label: "Acciones que demostraron este valor:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "dia_ideal",
+                        title: "Ejercicio 13: Mi Día Ideal",
+                        content: "Objetivo: Visualizar la vida que deseas.",
+                        fields: [
+                            { id: "dia_completo", label: "Describe tu día ideal desde que despiertas:", type: "textarea" },
+                            { id: "implementar", label: "¿Qué partes puedo traer a mi presente HOY?", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "panel",
+                        title: "Ejercicio 14: Panel de Identidad",
+                        content: "Objetivo: Reconocer visualmente quién eres.",
+                        fields: [
+                            { id: "elementos", label: "Elementos de mi panel:", type: "textarea" },
+                            { id: "reflexion_panel", label: "¿Qué versión de mí aparece aquí?", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "carta_futuro",
+                        title: "Ejercicio 15: Carta a Mi Yo Futuro",
+                        content: "Objetivo: Cultivar esperanza y conexión contigo misma.",
+                        fields: [
+                            { id: "fecha_hoy", label: "Fecha de hoy:", type: "text" },
+                            { id: "carta", label: "Carta a mi yo de dentro de 6 meses:", type: "textarea" },
+                            { id: "fecha_abrir", label: "Fecha para abrir:", type: "text" }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "💪 Seguridad Personal",
+                color: "#84cc16",
+                exercises: [
+                    {
+                        id: "mini_metas",
+                        title: "Ejercicio 16: Mini Metas Diarias",
+                        content: "Objetivo: Construir seguridad a través de pequeños compromisos.",
+                        fields: [
+                            { id: "semana_metas", label: "Mis mini metas de esta semana:", type: "textarea" },
+                            { id: "reflexion_metas", label: "¿Qué sentí al cumplirlas?", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "valentia",
+                        title: "Ejercicio 17: Pequeños Actos de Valentía",
+                        content: "Objetivo: Fortalecer tu confianza.",
+                        fields: [
+                            { id: "actos_valientes", label: "Actos valientes que hice:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "diario_coraje",
+                        title: "Ejercicio 18: Diario del Coraje",
+                        content: "Objetivo: Reconocer todas las veces que te eliges.",
+                        fields: [
+                            { id: "momentos_valientes", label: "Momentos valientes:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "nuevas_experiencias",
+                        title: "Ejercicio 19: Nuevas Experiencias",
+                        content: "Objetivo: Abrir tu mundo y conocerte mejor.",
+                        fields: [
+                            { id: "lista_experiencias", label: "Nuevas experiencias que quiero probar:", type: "textarea" },
+                            { id: "experiencias_vividas", label: "Experiencias que probé y qué descubrí:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "premios",
+                        title: "Ejercicio 20: Premios Sanos",
+                        content: "Objetivo: Reforzar tus avances desde el autocuidado.",
+                        fields: [
+                            { id: "lista_premios", label: "Mi lista de premios sanos:", type: "textarea" }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "🌺 Relaciones",
+                color: "#eab308",
+                exercises: [
+                    {
+                        id: "personas_vitamina",
+                        title: "Ejercicio 21: Personas Vitamina",
+                        content: "Objetivo: Identificar a las personas que nutren tu energía.",
+                        fields: [
+                            { id: "vitamina", label: "Personas vitamina:", type: "textarea" },
+                            { id: "drenaje", label: "Personas drenaje:", type: "textarea" },
+                            { id: "accion", label: "¿Cómo pasar más tiempo con mis personas vitamina?", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "limites",
+                        title: "Ejercicio 22: Límites Que Me Protegen",
+                        content: "Objetivo: Proteger tu bienestar marcando espacios sanos.",
+                        fields: [
+                            { id: "limites_necesarios", label: "Límites que necesito:", type: "textarea" },
+                            { id: "frases_comunicar", label: "Frases para comunicarlos:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "practica_no",
+                        title: "Ejercicio 23: Práctica del NO",
+                        content: "Objetivo: Aprender a decir NO sin culpa.",
+                        fields: [
+                            { id: "situaciones_no", label: "Situaciones donde dije sí pero quería decir no:", type: "textarea" },
+                            { id: "frases_no", label: "Frases que usaré para decir NO:", type: "textarea" }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "✨ Autovalidación",
+                color: "#f97316",
+                exercises: [
+                    {
+                        id: "ritual_nocturno",
+                        title: "Ejercicio 24: Ritual Nocturno",
+                        content: "Objetivo: Cerrar el día validándote.",
+                        fields: [
+                            { id: "noches", label: "Completa cada noche: 'Hoy fui suficiente porque...'", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "espejo_amable",
+                        title: "Ejercicio 25: Mi Espejo Amable",
+                        content: "Objetivo: Transformar tu relación con tu imagen.",
+                        fields: [
+                            { id: "frases_espejo", label: "3 frases amables que me digo frente al espejo:", type: "textarea" },
+                            { id: "emocion", label: "¿Qué emoción apareció?", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "afirmaciones_favoritas",
+                        title: "Ejercicio 26: Afirmaciones Favoritas",
+                        content: "Objetivo: Crear un set de frases que refuercen tu autoestima.",
+                        fields: [
+                            { id: "afirmaciones", label: "Mis 10 afirmaciones favoritas:", type: "textarea" },
+                            { id: "favorita", label: "La que repetiré esta semana:", type: "text" }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "🌿 Autocuidado Físico",
+                color: "#ef4444",
+                exercises: [
+                    {
+                        id: "ritual_descanso",
+                        title: "Ejercicio 27: Ritual de Descanso",
+                        content: "Objetivo: Dormir mejor.",
+                        fields: [
+                            { id: "rutina", label: "Mi rutina de 5 pasos antes de dormir:", type: "textarea" },
+                            { id: "cambios", label: "Cambios que noté:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "hidratacion",
+                        title: "Ejercicio 28: Hidratación Consciente",
+                        content: "Objetivo: Cuidar tu energía física.",
+                        fields: [
+                            { id: "compromiso", label: "Mi compromiso con la hidratación:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "movimiento",
+                        title: "Ejercicio 29: Movimiento Amable",
+                        content: "Objetivo: Mover tu cuerpo con disfrute.",
+                        fields: [
+                            { id: "tipo", label: "Movimiento que disfruto:", type: "text" },
+                            { id: "sensaciones", label: "¿Cómo se sintió mi cuerpo?", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "alimentos",
+                        title: "Ejercicio 30: Alimentos Que Me Hacen Bien",
+                        content: "Objetivo: Identificar lo que te da energía real.",
+                        fields: [
+                            { id: "lista", label: "Alimentos que me hacen sentir bien:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "pantallas",
+                        title: "Ejercicio 31: Media Hora Sin Pantallas",
+                        content: "Objetivo: Descanso mental antes de dormir.",
+                        fields: [
+                            { id: "actividad", label: "Actividad que hago en lugar de pantallas:", type: "text" },
+                            { id: "cambios_sueno", label: "¿Cómo cambió mi sueño?", type: "textarea" }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "💙 Autocuidado Emocional",
+                color: "#ec4899",
+                exercises: [
+                    {
+                        id: "diario_emocional",
+                        title: "Ejercicio 32: Diario Emocional",
+                        content: "Objetivo: Reconocer lo que sientes sin juzgarte.",
+                        fields: [
+                            { id: "semana_emociones", label: "Registro emocional de la semana (Mente/Cuerpo/Corazón):", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "semaforo",
+                        title: "Ejercicio 33: Semáforo Emocional",
+                        content: "Objetivo: Entender tus señales internas.\n\n🔴 Rojo: emociones fuertes\n🟡 Amarillo: incomodidad\n🟢 Verde: calma",
+                        fields: [
+                            { id: "color_hoy", label: "Hoy estoy en color:", type: "text" },
+                            { id: "necesito", label: "Necesito:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "respiracion",
+                        title: "Ejercicio 34: Respiración 4-2-6",
+                        content: "Objetivo: Calmar la mente.\n\nInhala (4), Mantén (2), Exhala (6)",
+                        fields: [
+                            { id: "practica", label: "¿Cuándo practiqué? ¿Cómo ayudó?", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "plan_dificiles",
+                        title: "Ejercicio 35: Plan Para Días Difíciles",
+                        content: "Objetivo: Kit de apoyo emocional.",
+                        fields: [
+                            { id: "kit", label: "10 cosas que me ayudan:", type: "textarea" }
+                        ]
+                    },
+                    {
+                        id: "validacion_emocional",
+                        title: "Ejercicio 36: Validación Emocional",
+                        content: "Objetivo: Recordar
